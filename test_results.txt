@@ -1,0 +1,242 @@
+Test Results original and improved:
+
+Original: 
+…individual_assignment % python3 test_assistant_original.py
+
+🧪 Market Research Assistant — Evaluation Suite
+   Industries tested: fintech, finance, aviation, tech
+   Note: 15s sleep between LLM calls — this will take ~10 mins total
+
+
+============================================================
+Q1 — Input Validation
+============================================================
+  (sleeping 15s between calls to respect rate limits)
+
+  [✓] 'fintech' → VALID
+  [✓] 'finance' → VALID
+  [✓] 'aviation' → VALID
+  [✓] 'tech' → VALID
+  [✓] '' → INVALID
+  [✓] '42' → INVALID
+  [✓] '!!!' → INVALID
+  [✓] 'asdfghjkl' → INVALID
+
+  Accuracy: 8/8 = 100%
+
+  Pausing 60s before Q2 to reset rate limit...
+
+============================================================
+Q2 — URL Relevance (Precision / Recall / F1)
+============================================================
+  Ground truth defined by manually reviewing assistant outputs.
+
+  Industry: fintech
+  Retrieved titles:
+    ✗ ozerk ozan
+    ✓ financial technology
+    ✗ lendingclub
+    ✗ list of brearley school alumnae
+    ✓ klarna
+  TP:2  FP:3  FN:18
+  Precision: 0.4  Recall: 0.1  F1: 0.16
+
+  Industry: finance
+  Retrieved titles:
+    ✓ financial services
+    ✗ legal financing industry
+    ✓ ministry of economics and finance (france)
+    ✗ offshore financial centre
+    ✓ trade finance technology
+  TP:3  FP:2  FN:18
+  Precision: 0.6  Recall: 0.14  F1: 0.23
+
+  Industry: aviation
+  Retrieved titles:
+    ✓ aerospace manufacturer
+    ✓ aviation industry corporation of china
+    ✓ utva aviation industry
+    ✓ shahed aviation industries
+    ✓ dassault aviation
+  TP:5  FP:0  FN:18
+  Precision: 1.0  Recall: 0.22  F1: 0.36
+
+  Industry: tech
+  Retrieved titles:
+    ✓ technology company
+    ✗ high tech
+    ✗ tech bro
+    ✗ science and technology in israel
+    ✓ semiconductor industry in china
+  TP:2  FP:3  FN:18
+  Precision: 0.4  Recall: 0.1  F1: 0.16
+
+  Average F1 across all industries: 0.23
+
+  Pausing 60s before Q3 to reset rate limit...
+
+============================================================
+Q3 — Report Faithfulness (Cosine Similarity)
+============================================================
+  Method: embed report + source pages using Gemini embeddings,
+  compute cosine similarity. Higher = more grounded in sources.
+
+  Generating report for: fintech...
+
+  Industry       : fintech
+  Cosine sims    : [np.float64(0.71), np.float64(0.834), np.float64(0.669), np.float64(0.509), np.float64(0.701)]
+  Average sim    : 0.684
+  Word count     : 282 ✓
+
+  Generating report for: finance...
+
+  Industry       : finance
+  Cosine sims    : [np.float64(0.812), np.float64(0.728), np.float64(0.69), np.float64(0.721), np.float64(0.74)]
+  Average sim    : 0.738
+  Word count     : 373 ✓
+
+  Generating report for: aviation...
+
+  Industry       : aviation
+  Cosine sims    : [np.float64(0.829), np.float64(0.738), np.float64(0.717), np.float64(0.724), np.float64(0.695)]
+  Average sim    : 0.741
+  Word count     : 377 ✓
+
+  Generating report for: tech...
+
+  Industry       : tech
+  Cosine sims    : [np.float64(0.857), np.float64(0.73), np.float64(0.686), np.float64(0.717), np.float64(0.727)]
+  Average sim    : 0.743
+  Word count     : 301 ✓
+
+  Average cosine similarity across industries: 0.727
+
+============================================================
+SUMMARY
+============================================================
+  Q1 Validation accuracy          : 100%
+  Q2 URL relevance avg F1         : 0.23
+  Q3 Report faithfulness avg cos  : 0.727
+============================================================
+
+——————————————————————————————
+
+Improved:
+…individual_assignment % python3 test_assistant_improved.py
+
+🧪 Market Research Assistant — Evaluation Suite
+   Industries tested: fintech, finance, aviation, tech
+   Note: 15s sleep between LLM calls — this will take ~10 mins total
+
+
+============================================================
+Q1 — Input Validation
+============================================================
+  (sleeping 15s between calls to respect rate limits)
+
+  [✓] 'fintech' → VALID
+  [✓] 'finance' → VALID
+  [✓] 'aviation' → VALID
+  [✓] 'tech' → VALID
+  [✓] '' → INVALID
+  [✓] '42' → INVALID
+  [✓] '!!!' → INVALID
+  [✓] 'asdfghjkl' → INVALID
+
+  Accuracy: 8/8 = 100%
+
+  Pausing 60s before Q2 to reset rate limit...
+
+============================================================
+Q2 — URL Relevance (Precision / Recall / F1)
+============================================================
+  Ground truth defined by manually reviewing assistant outputs.
+
+  Industry: fintech
+  Retrieved titles:
+    ✓ financial technology
+    ✓ open banking
+    ✓ paypal
+    ✓ visa inc.
+    ✓ mastercard
+  TP:5  FP:0  FN:15
+  Precision: 1.0  Recall: 0.25  F1: 0.4
+
+  Industry: finance
+  Retrieved titles:
+    ✓ finance
+    ✓ financial services
+    ✓ jpmorgan chase
+    ✗ visa inc.
+    ✗ mastercard
+  TP:3  FP:2  FN:17
+  Precision: 0.6  Recall: 0.15  F1: 0.24
+
+  Industry: aviation
+  Retrieved titles:
+    ✓ aviation
+    ✓ history of aviation
+    ✓ boeing
+    ✓ airbus
+    ✓ lockheed martin
+  TP:5  FP:0  FN:15
+  Precision: 1.0  Recall: 0.25  F1: 0.4
+
+  Industry: tech
+  Retrieved titles:
+    ✓ information technology
+    ✓ apple inc.
+    ✓ microsoft
+    ✓ amazon (company)
+    ✓ alphabet inc.
+  TP:5  FP:0  FN:15
+  Precision: 1.0  Recall: 0.25  F1: 0.4
+
+  Average F1 across all industries: 0.36
+
+  Pausing 60s before Q3 to reset rate limit...
+
+============================================================
+Q3 — Report Faithfulness (Cosine Similarity)
+============================================================
+  Method: embed report + source pages using Gemini embeddings,
+  compute cosine similarity. Higher = more grounded in sources.
+
+  Generating report for: fintech...
+
+  Industry       : fintech
+  Cosine sims    : [np.float64(0.815), np.float64(0.709), np.float64(0.713), np.float64(0.748), np.float64(0.729)]
+  Average sim    : 0.743
+  Word count     : 383 ✓
+
+  Generating report for: finance...
+
+  Industry       : finance
+  Cosine sims    : [np.float64(0.85), np.float64(0.748), np.float64(0.704), np.float64(0.72), np.float64(0.74)]
+  Average sim    : 0.753
+  Word count     : 323 ✓
+
+  Generating report for: aviation...
+
+  Industry       : aviation
+  Cosine sims    : [np.float64(0.744), np.float64(0.815), np.float64(0.772), np.float64(0.75), np.float64(0.745)]
+  Average sim    : 0.765
+  Word count     : 330 ✓
+
+  Generating report for: tech...
+
+  Industry       : tech
+  Cosine sims    : [np.float64(0.769), np.float64(0.701), np.float64(0.711), np.float64(0.704), np.float64(0.666)]
+  Average sim    : 0.71
+  Word count     : 320 ✓
+
+  Average cosine similarity across industries: 0.743
+
+============================================================
+SUMMARY
+============================================================
+  Q1 Validation accuracy          : 100%
+  Q2 URL relevance avg F1         : 0.36
+  Q3 Report faithfulness avg cos  : 0.743
+============================================================
+
