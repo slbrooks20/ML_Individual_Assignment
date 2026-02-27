@@ -20,16 +20,15 @@ with st.sidebar:
     st.subheader("Model Parameters")
 
     model = st.selectbox(
-        "Model:",
-        ["gemini-2.5-flash", "gemini-2.5-flash-lite"],
-        help="Flash = more capable | Flash Lite = faster, lower quota usage"
-    )
-
+    "Model:",
+    ["gemini-2.5-flash"],
+    help="Gemini 2.5 Flash"
+)
     temperature = st.slider(
         "Temperature",
         min_value=0.0,
         max_value=1.0,
-        value=0.7,
+        value=0.5,
         step=0.05,
         help="Higher = more creative, lower = more focused and deterministic"
     )
